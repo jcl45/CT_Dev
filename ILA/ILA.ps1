@@ -6,7 +6,7 @@ $nl = "`r`n"
 $Global:Stamp
 Add-Type -AssemblyName System.Windows.Forms
 $FileBrowser = New-Object System.Windows.Forms.OpenFileDialog -Property @{ 
-    InitialDirectory = [Environment]::GetFolderPath('Downloads') 
+    InitialDirectory = [Environment]::GetFolderPath('MyComputer') 
     Filter = 'SpreadSheet (*.csv)|*.csv|Documents (*.txt)|*.txt|Excel Worksheet (*xlsx)|*.xlsx'
 
 }
@@ -125,43 +125,29 @@ function PopUpBoxD {
     }
 
 #WPF Window
-<#$inputXML = @"
-"@ #>
-$inputXML = Get-Content "$ScriptDir\ILA\MainWindow.xaml"
- 
+$CacheDir = "C:\ProgramData\Sky\Cache\ILA"
+if (!(Test-Path $CacheDir)){Invoke-Expression -Command:"md $CacheDir"}
+Invoke-RestMethod -Uri "https://raw.githubusercontent.com/jcl45/CT_Dev/main/ILA/ILA/MainWindow.xaml" -OutFile "$CacheDir\MainWindow.xaml"
+$inputXML = Get-Content "$CacheDir\MainWindow.xaml" #XAML Raw
 $inputXML = $inputXML -replace 'mc:Ignorable="d"','' -replace "x:N",'N' -replace '^<Win.*', '<Window'
 [void][System.Reflection.Assembly]::LoadWithPartialName('presentationframework')
 [xml]$XAML = $inputXML
+
 #Read XAML
- 
 $reader=(New-Object System.Xml.XmlNodeReader $xaml)
-try{
+try {
     $Form=[Windows.Markup.XamlReader]::Load( $reader )
-}
-catch{
+} catch {
     Write-Warning "Unable to parse XML, with error: $($Error[0])`n Ensure that there are NO SelectionChanged or TextChanged properties in your textboxes (PowerShell cannot process them)"
     throw
 }
- 
-#===========================================================================
-# Load XAML Objects In PowerShell
-#===========================================================================
-  
-$xaml.SelectNodes("//*[@Name]") | %{"trying item $($_.Name)";
-    try {Set-Variable -Name "WPF$($_.Name)" -Value $Form.FindName($_.Name) -ErrorAction Stop}
-    catch{throw}
-    }
 
+#Load XAML Objects In PowerShell
+$xaml.SelectNodes("//*[@Name]") | ForEach-Object {"trying item $($_.Name)";
+    try {Set-Variable -Name "WPF$($_.Name)" -Value $Form.FindName($_.Name) -ErrorAction Stop} catch {throw}
+}
 
-#$WPFOK.Add_Click({$form.Close()})
-
-#===========================================================================
-# Use this space to add code to the various form elements in your GUI
-#===========================================================================
-
-
-######################## Device Actions ########################
-
+#Control GUI Elements
 $WPFDevSerial.Add_SelectionChanged({
     #$WPFDevSerial.Text = $WPFDevSerial.Text.Trim();
     $LC = $WPFDevSerial.LineCount
@@ -198,7 +184,7 @@ $WPFSelWSNBut.Add_Click({
 $WPFDevImpFile.Add_Click({
     $null = $FileBrowser.ShowDialog()
     $SelFile = $FileBrowser.FileName
-    if ($null -ne $SelFile) {
+    if ($SelFile.Length -gt 0) {
         if (($SelFile -like "*.csv") -or ($SelFile -like "*.xlsx")) {
             #$WPFOutPutBox.AppendText("$nl $SelFile")
             #Import-Module ImportExcel
