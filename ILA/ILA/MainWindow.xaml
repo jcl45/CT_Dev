@@ -1,0 +1,85 @@
+﻿<Window x:Class="Remove_Intune_Object.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp2"
+        Title="ILA" Height="470" Width="700">
+    <DockPanel>
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" Margin="0,0,0,0" Height="163">
+            <Grid Width="700" VerticalAlignment="Bottom" Height="160">
+                <TextBox Name="OutPutBox" TextWrapping="Wrap" Height="104" Width="660" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="12,10,0,0" IsReadOnly="True" VerticalScrollBarVisibility="Visible"/>
+                <Rectangle Height="35" VerticalAlignment="Bottom" Fill="#FFB6B6B6" />
+                <TextBlock x:Name="ConStatMSG" VerticalAlignment="Bottom" Margin="368,0,172,-1" Height="27" Text="MS Graph: Not Connected" TextAlignment="Left" />
+                <TextBlock x:Name="ConStatAzAD" VerticalAlignment="Top" Margin="455,134,-53,0" Height="27" Text="Azure AD: Not Connected" TextAlignment="Center" />
+            </Grid>
+        </StackPanel>
+        <TabControl Name="tcSample" Width="696" Height="263" BorderBrush="White" VerticalAlignment="Top">
+            <TabItem Header="Device Actions">
+                <DockPanel x:Name="dpMainInformations" LastChildFill="False" Margin="0,0,-2,0" Height="244" VerticalAlignment="Top">
+                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="0,0,0,0" Height="244">
+                        <Grid Width="693">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="115*"/>
+                                <ColumnDefinition Width="578*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="DevSerial" Width="212" VerticalScrollBarVisibility="Visible" AcceptsReturn="True" Margin="10,10,471,35" Grid.ColumnSpan="2"/>
+                            <!---<Rectangle HorizontalAlignment="Left" Height="112" Margin="238,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="395"/>-->
+                            <!---<TextBlock HorizontalAlignment="Left" Margin="245,14,0,0" Text="Object Actions" TextWrapping="Wrap" VerticalAlignment="Top"/> -->
+                            <Button x:Name="RemIntObj" Content="Remove Intune Object" Margin="130,37,263,187" Grid.Column="1"/>
+                            <Button x:Name="RemAADObj" Content="Remove AAD Object" Margin="130,67,263,157" Grid.Column="1"/>
+                            <Button x:Name="RemAPObj" Content="Remove Autopilot Object" Margin="326,37,67,187" Grid.Column="1"/>
+                            <Button x:Name="RemSCCMObj" Content="Remove SCCM Object" Margin="326,67,67,157" Grid.Column="1"/>
+                            <Button x:Name="RemAllObj" Content="Remove All Objects" Margin="130,97,263,129" Background="#FFFF7474" Grid.Column="1"/>
+                            <Button x:Name="GrpTagCheck" Content="Check Group Tag" HorizontalAlignment="Left" Margin="130,137,0,0" VerticalAlignment="Top" Width="185" Grid.Column="1"/>
+                            <Button x:Name="GrpFixTag" Content="Fix Group Tag" HorizontalAlignment="Left" Margin="326,137,0,0" VerticalAlignment="Top" Width="185" Grid.Column="1"/>
+                            <Button x:Name="DevImpFile" Content="Import from File" HorizontalAlignment="Left" Margin="98,215,0,0" VerticalAlignment="Top" Width="124" Grid.ColumnSpan="2"/>
+                            <TextBox x:Name="DevCount" HorizontalAlignment="Left" Margin="10,216,0,0" Text="Devices: 0" TextWrapping="Wrap" VerticalAlignment="Top" Width="83" BorderBrush="White"/>
+                            <CheckBox x:Name="Bypass14" Content="Bypass Recent Activity Check" HorizontalAlignment="Left" Margin="331,98,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+                            <Button x:Name="DevAddGrp" Content="Add to AAD Group" HorizontalAlignment="Left" Margin="130,179,0,0" VerticalAlignment="Top" Width="185" Grid.Column="1"/>
+                            <!--- Device Overlay -->
+                            <TextBlock x:Name="WinBlank1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Grid.ColumnSpan="2" Height="244" Width="683" Background="White" Visibility="Hidden"/>
+                            <!--- File Navigation-->
+                            <TextBlock x:Name="PopTB1" Grid.Column="1" HorizontalAlignment="Left" Margin="149,102,0,0" TextWrapping="Wrap" Text="Enter AAD Group Name" VerticalAlignment="Top" Width="136" Visibility="Hidden"/>
+                            <TextBox x:Name="PopGrp1" Grid.Column="1" HorizontalAlignment="Left" Margin="99,123,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="236" Height="24" FontSize="14" Visibility="Hidden"/>
+                            <Button x:Name="PopOK1" Grid.Column="1" Content="OK" HorizontalAlignment="Left" Margin="151,153,0,0" VerticalAlignment="Top" Height="25" Width="60" Visibility="Hidden"/>
+                            <Button x:Name="PopCan1" Grid.Column="1" Content="Cancel" HorizontalAlignment="Left" Margin="217,153,0,0" VerticalAlignment="Top" Height="25" Width="60" Visibility="Hidden"/>
+                            <Rectangle x:Name="PopBor1" Grid.Column="1" HorizontalAlignment="Left" Height="102" Margin="81,87,0,0" Stroke="Black" VerticalAlignment="Top" Width="274" Visibility="Hidden"/>
+                            <!--- Select Box-->
+                            <Rectangle x:Name="SelBoxFrame1" HorizontalAlignment="Left" Height="226" VerticalAlignment="Center" Width="660" Grid.ColumnSpan="2" Margin="10,0,0,0" Fill="#FF2B579A" Visibility="Hidden"/>
+                            <Rectangle x:Name="SelBoxFrame2" HorizontalAlignment="Left" Height="222" Margin="103,0,0,0" VerticalAlignment="Center" Width="566" Grid.ColumnSpan="2" Fill="#FFF6F7F9" Visibility="Hidden"/>
+                            <TextBlock x:Name="SelBoxFN" HorizontalAlignment="Left" Margin="109,204,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="555" Height="26" FontWeight="Bold" Foreground="#FF898989" Background="#FFF6F7F9" Grid.ColumnSpan="2" Visibility="Hidden"/>
+                            <Button x:Name="SelBoxBak" Content="Back" HorizontalAlignment="Left" Margin="13,12,0,0" VerticalAlignment="Top" Width="50" Height="33" FontSize="14" Background="#FF2B579A" BorderBrush="#FFF0F0F0" Foreground="#FFF0F0F0" FontWeight="SemiBold" Visibility="Hidden"/>
+                            <!--- Select Worksheet-->
+                            <TextBox x:Name="SelWST" HorizontalAlignment="Left" Margin="109,14,0,0" TextWrapping="Wrap" Text="Select Worksheet" VerticalAlignment="Top" Width="223" Grid.ColumnSpan="2" Height="25" FontSize="18" Foreground="#FF676464" FontWeight="Bold" Background="#FFF6F7F9" BorderBrush="#FFF6F7F9" Visibility="Hidden"/>
+                            <Button x:Name="SelWSNBut" Content="Next" HorizontalAlignment="Left" Margin="13,200,0,0" VerticalAlignment="Top" Width="50" Height="33" FontSize="14" Background="#FF2B579A" BorderBrush="#FFF0F0F0" Foreground="#FFF0F0F0" FontWeight="SemiBold" Visibility="Hidden"/>
+                            <ListBox x:Name="SelLBox" Margin="10,45,86,45" Width="NaN" Height="NaN" Background="#FFF6F7F9" BorderBrush="#FFF6F7F9" Grid.Column="1" Visibility="Hidden"/>
+
+                            <!--- Select Column-->
+                            <TextBox x:Name="SelCT" HorizontalAlignment="Left" Margin="109,14,0,0" TextWrapping="Wrap" Text="Select Column" VerticalAlignment="Top" Width="223" Grid.ColumnSpan="2" Height="25" FontSize="18" BorderBrush="#FFF6F7F9" Background="#FFF6F7F9" Foreground="#FF676464" FontWeight="Bold" Visibility="Hidden"/>
+                            <Button x:Name="SelCBut" Content="OK" HorizontalAlignment="Left" Margin="13,200,0,0" VerticalAlignment="Top" Width="50" Height="33" FontSize="14" Background="#FF2B579A" BorderBrush="#FFF0F0F0" Foreground="#FFF0F0F0" FontWeight="SemiBold" Visibility="Hidden"/>
+
+
+
+
+                        </Grid>
+                    </StackPanel>
+                </DockPanel>
+            </TabItem>
+            <TabItem Header="User Actions">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="26*"/>
+                        <ColumnDefinition Width="319*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="UsrName" Width="212" VerticalScrollBarVisibility="Visible" AcceptsReturn="True" Margin="10,10,468,25" Grid.ColumnSpan="2"/>
+                    <Button x:Name="UsrImpFile" Content="Import from File" HorizontalAlignment="Left" Margin="46,215,0,0" VerticalAlignment="Top" Width="124" Grid.Column="1"/>
+                    <TextBox x:Name="UsrCount" HorizontalAlignment="Left" Margin="10,216,0,0" Text="Users: 0" TextWrapping="Wrap" VerticalAlignment="Top" Width="83" BorderBrush="White" Grid.ColumnSpan="2"/>
+                    <Button x:Name="UsrAddGrp" Content="Add to AAD Group" HorizontalAlignment="Left" Margin="193,179,0,0" VerticalAlignment="Top" Width="185" Grid.Column="1"/>
+
+                </Grid>
+            </TabItem>
+            <TabItem Header="Infra Actions" />
+        </TabControl>
+
+    </DockPanel>
+</Window>

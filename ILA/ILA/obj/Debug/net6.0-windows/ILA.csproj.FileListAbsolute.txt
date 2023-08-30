@@ -1,0 +1,5 @@
+C:\Temp\Github\Assored-Scripts\ILA\ILA\ILA\obj\Debug\net6.0-windows\ILA.csproj.AssemblyReference.cache
+C:\Temp\Github\Assored-Scripts\ILA\ILA\ILA\obj\Debug\net6.0-windows\MainWindow.g.cs
+C:\Temp\Github\Assored-Scripts\ILA\ILA\ILA\obj\Debug\net6.0-windows\App.g.cs
+C:\Temp\Github\Assored-Scripts\ILA\ILA\ILA\obj\Debug\net6.0-windows\ILA_MarkupCompile.cache
+C:\Temp\Github\Assored-Scripts\ILA\ILA\ILA\obj\Debug\net6.0-windows\ILA_MarkupCompile.lref
