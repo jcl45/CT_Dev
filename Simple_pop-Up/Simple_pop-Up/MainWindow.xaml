@@ -1,0 +1,45 @@
+﻿<Window x:Class="Simple_pop_Up.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Simple_pop_Up"
+        mc:Ignorable="d"
+        Title="Add Objects to AAD Group" Height="190" Width="400">
+
+    <Grid Background="#FF248548">
+        <Rectangle HorizontalAlignment="Center" Height="47" VerticalAlignment="Top" Width="400" Fill="#FF2D9855"/>
+        <TextBlock x:Name="BodTxt" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Margin="0,12,0,0" Foreground="White"/>
+        <Button x:Name="OKButton" HorizontalAlignment="Center" Margin="0,105,0,0" VerticalAlignment="Top" Width="86" Height="36" FontSize="16" BorderBrush="#FF43E47F" Background="#FF155E2F" Foreground="White" FontWeight="Bold" Visibility="Hidden">
+            <TextBlock Text="OK" Margin="0,-2,0,0"/>
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"></Setter>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <TextBox x:Name="InpTxt" HorizontalAlignment="Center" Margin="0,67,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="360" Height="24" FontSize="14" TextAlignment="Center" Visibility="Hidden"/>
+        <Button x:Name="BrowseButton" HorizontalAlignment="Center" VerticalAlignment="Center" Height="42" Width="156" BorderBrush="#FF43E47F" Background="#FF155E2F" Foreground="White" FontFamily="Segoe UI Semilight" Margin="0,45,0,0" Visibility="Hidden">
+            <TextBlock Text="Browse for Spreadsheet" Margin="0,-2,0,0"/>
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"></Setter>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <TextBlock x:Name="BrowseFileN" HorizontalAlignment="Center" Margin="0,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" Width="320" Visibility="Hidden"/>
+        <Button x:Name="BrowseSel" HorizontalAlignment="Left" Margin="285,105,0,0" VerticalAlignment="Top" Width="47" BorderBrush="#FF43E47F" Background="#FF155E2F" Foreground="White" Height="22" FontSize="11" Visibility="Hidden">
+            <TextBlock Text="Select" Margin="0,-2,0,0"/>
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"></Setter>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <ComboBox x:Name="BrowseSelC" SelectedIndex="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="58,105,0,0" Width="220" Visibility="Hidden">
+            <ComboBoxItem Content="Select Worksheet"/>
+        </ComboBox>
+        <TextBox x:Name="ResultsTB" HorizontalAlignment="Left" Margin="15,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="368" Height="104" BorderBrush="#FF43E47F" Background="#FF155E2F" Foreground="White" VerticalScrollBarVisibility="Auto" UseLayoutRounding="True" Visibility="Hidden"/>
+
+    </Grid>
+</Window>

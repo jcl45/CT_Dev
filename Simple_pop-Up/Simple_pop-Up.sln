@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simple_pop-Up", "Simple_pop-Up\Simple_pop-Up.csproj", "{AFFACB50-D948-440E-813D-38FC1FEDE006}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AFFACB50-D948-440E-813D-38FC1FEDE006}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFFACB50-D948-440E-813D-38FC1FEDE006}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFFACB50-D948-440E-813D-38FC1FEDE006}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFFACB50-D948-440E-813D-38FC1FEDE006}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B81E8537-88FF-4CA8-89D4-F027D6B24254}
+	EndGlobalSection
+EndGlobal
