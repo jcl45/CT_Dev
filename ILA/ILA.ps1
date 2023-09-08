@@ -1,4 +1,10 @@
-# Run Script As
+<# Notes
+Tasks
+ - Delete Intune Obj
+  - Remove from autopilot db
+  - varify existance - , Autopilot, AAD, Intune, SCCM
+
+#>
 
 
 # Global Variables
@@ -62,6 +68,8 @@ function DevSerialTrim {
 }
 
 function Get-Devices {
+
+    <#
     $Numb = 1
 
     $URI = "deviceManagement/managedDevices"
@@ -79,7 +87,23 @@ function Get-Devices {
         $OutputNextLink = $DBResponse."@odata.nextLink"
         $Script:Output += $DBResponse.value
     }
+    #>
 }
+
+function CallMSGraph {
+    Param (
+    [Parameter(Mandatory=$true, Position=0)]
+    [String]$Res,
+    [Parameter(Mandatory=$true, Position=1)]
+    [String]$Ver,
+    [Parameter(Mandatory=$false, Position=2)]
+    [String]$Extra
+    )
+    $Script:GraphReturn = $null
+    $uri = "https://graph.microsoft.com/$Ver/$($Res)$($Extra)"
+    $Script:GraphReturn = Invoke-MSGraphRequest -HttpMethod GET -Url $uri
+}
+
 
 function Get-Graph {
         [CmdletBinding()]
@@ -247,11 +271,19 @@ $WPFRemIntObj.Add_Click({
         $ObjRem = @()
         $NoObj = @()
         
+        $Script:DevArray | ForEach-Object {
+            CallMSGraph "deviceManagement/managedDevices" "v1.0"
+            $RawData = $GraphReturn.value
+        }
+
+        <#
         if ($Script:DevArray.count -gt 10) {Get-Graph "deviceManagement/managedDevices" "GET"} else {$Script:DevArray | ForEach-Object {
             if ($_ -like "UK*") {$SNT = $_.TrimStart("UK")} else {$SNT = $_}
             $Script:Output += (Get-IntuneManagedDevice -Filter "SerialNumber eq '$SNT'")  
             }
         }
+
+        #>
         
         $Script:DevArray | ForEach-Object {
             #$WPFOutPutBox.AppendText("$TD :  Assessing Device: $_ $nl")
@@ -300,7 +332,7 @@ $WPFRemIntObj.Add_Click({
     if ($WPFBypass14.IsChecked) {$WPFBypass14.IsChecked = $False}
 })
 
-
+<#
 $WPFRemAADObj.IsEnabled = $False
 $WPFRemAADObj.Add_Click({
     
@@ -311,6 +343,15 @@ $WPFRemAPObj.Add_Click({
     ListBoxUpdate
     if ($Script:DevArray.count -gt 0) {
         ConnectMSGraph
+
+        
+
+
+
+
+
+
+        <#
         $Script:APObj = $null
         $Script:APObj = @()
         #Get AP Device Info
@@ -327,7 +368,7 @@ $WPFRemAPObj.Add_Click({
                     $Script:APObj += "Error Object Not Found: $_"
                 }
         }
-                <#
+                
                 foreach ($device in $AutopilotDevices)
                 {
                     Write-host "   Deleting SerialNumber: $($Device.value.serialNumber)  |  Model: $($Device.value.model)  |  Id: $($Device.value.id)  |  GroupTag: $($Device.value.groupTag)  |  ManagedDeviceId: $($device.value.managedDeviceId) …" –NoNewline
@@ -335,11 +376,12 @@ $WPFRemAPObj.Add_Click({
                     $AutopilotDevice = Invoke-MSGraphRequest –Url $uri –HttpMethod DELETE –ErrorAction Stop
                     Write-Host "Success" –ForegroundColor Green
                 }
-                #>
+                
 
 
     }
 })
+#>
 
 $WPFRemSCCMObj.IsEnabled = $False
 $WPFRemSCCMObj.Add_Click({
