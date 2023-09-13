@@ -126,6 +126,7 @@ Write-host "Number of Driver Update Profiles found: $($RawData.DisplayName.Count
 $RawData | Where-Object {Write-host $_.displayName -ForegroundColor Yellow}
 
 
+Break
 ================ needs work =====================
 # Intents
 CallMSGraph "deviceManagement/intents" "Beta" "?`$filter=isAssigned+eq+true"
