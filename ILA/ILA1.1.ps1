@@ -7,7 +7,7 @@ $newRunspace.Open()
 $newRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 
 #Global Variables
-$nl = "`r`n"
+$global:nl = "`r`n"
 
 #Global Functions
 function DateTime {
@@ -55,12 +55,18 @@ function DevSerialTrim {
 }
 
 function ListBoxUpdate {
-    $Global:DevArray = $null
-    #work out how to handle blank spaces
-    $syncHash.DevSerial.Text = ($syncHash.DevSerial.Text.Trim()).split([environment]::NewLine,[System.StringSplitOptions]"RemoveEmptyEntries")
+    $Global:DevArray = @()
+    $DevArray = $syncHash.DevSerial.Text
+    $DevArray = ($DevArray.Trim()).split([environment]::NewLine,[System.StringSplitOptions]"RemoveEmptyEntries")
+    $DevArray = $DevArray.Trim()
+    $DevArray = $DevArray.TrimStart("UK,GB")
+    $syncHash.DevSerial.Text = $null
+    $DevArray | ForEach-Object {
+        $syncHash.DevSerial.AppendText("$_`r`n")
+    }
+    $LC = $syncHash.DevSerial.LineCount
+    $syncHash.DevCount.Text = "Device: $LC"
     if ($syncHash.DevSerial.Text.count -gt 0) {
-        $Global:DevArray = ($syncHash.DevSerial.Text.Trim()).split([environment]::NewLine,[System.StringSplitOptions]"RemoveEmptyEntries")
-        $Global:DevArray = $Script:DevArray.TrimStart("UK,GB")
         if ($syncHash.DevArray.count -gt 0) {
             $syncHash.DevArray = $DevArray
         } else {$syncHash.Add('DevArray',$DevArray)}
@@ -92,9 +98,9 @@ function CallMgGraph {
     [Parameter(Mandatory=$false, Position=3)]
     [String]$Extra
     )
-    $Script:GraphReturn = $null
+    $Global:GraphReturn = $null
     $uri = "https://graph.microsoft.com/$Ver/$($Res)$($Extra)"
-    $Script:GraphReturn = Invoke-MgGraphRequest -method $Meth -Uri $uri
+    $Global:GraphReturn = Invoke-MgGraphRequest -method $Meth -Uri $uri
 }
 
 
@@ -139,13 +145,16 @@ $syncHash.DevSerial.Add_SelectionChanged({
 
 $syncHash.RemIntObj.Add_Click({
     ListBoxUpdate
-    $syncHash.OutPutBox.AppendText("$Script:DevArray")
+    #$syncHash.OutPutBox.AppendText("$Script:DevArray")
     
     if ($DevArray.count -gt 0) {
         $global:Session = [PowerShell]::Create().AddScript({
             $syncHash.Window.Dispatcher.Invoke(
                     [action]{
-                        $syncHash.OutPutBox.AppendText("$($syncHash.DevArray)")
+                        $syncHash.DevArray | ForEach-Object {
+                            Write-Host "$_"
+                            #$syncHash.OutPutBox.AppendText("$_`r`n")
+                        }
                     },"Normal"
                 )
             
