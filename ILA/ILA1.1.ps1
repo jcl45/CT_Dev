@@ -152,8 +152,8 @@ $syncHash.RemIntObj.Add_Click({
             $syncHash.Window.Dispatcher.Invoke(
                     [action]{
                         $syncHash.DevArray | ForEach-Object {
-                            Write-Host "$_"
-                            #$syncHash.OutPutBox.AppendText("$_`r`n")
+                            
+                            $syncHash.OutPutBox.AppendText("$_`r`n")
                         }
                     },"Normal"
                 )

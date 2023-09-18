@@ -69,7 +69,7 @@ function DevSerialTrim {
 
 function Get-Devices {
 
-    <#
+
     $Numb = 1
 
     $URI = "deviceManagement/managedDevices"
@@ -87,7 +87,7 @@ function Get-Devices {
         $OutputNextLink = $DBResponse."@odata.nextLink"
         $Script:Output += $DBResponse.value
     }
-    #>
+
 }
 
 function CallMSGraph {
