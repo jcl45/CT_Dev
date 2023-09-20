@@ -127,6 +127,7 @@ $RawData | Where-Object {Write-host $_.displayName -ForegroundColor Yellow}
 
 
 Break
+================ Device Config profiles not listing ================
 ================ needs work =====================
 # Intents
 CallMSGraph "deviceManagement/intents" "Beta" "?`$filter=isAssigned+eq+true"
