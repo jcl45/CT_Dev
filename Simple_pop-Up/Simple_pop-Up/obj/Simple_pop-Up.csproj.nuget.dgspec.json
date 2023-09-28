@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Temp\\Github\\Assored-Scripts\\ILA\\Simple_pop-Up\\Simple_pop-Up\\Simple_pop-Up.csproj": {}
+    "C:\\Temp\\Github\\CT_Dev\\Simple_pop-Up\\Simple_pop-Up\\Simple_pop-Up.csproj": {}
   },
   "projects": {
-    "C:\\Temp\\Github\\Assored-Scripts\\ILA\\Simple_pop-Up\\Simple_pop-Up\\Simple_pop-Up.csproj": {
+    "C:\\Temp\\Github\\CT_Dev\\Simple_pop-Up\\Simple_pop-Up\\Simple_pop-Up.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Temp\\Github\\Assored-Scripts\\ILA\\Simple_pop-Up\\Simple_pop-Up\\Simple_pop-Up.csproj",
+        "projectUniqueName": "C:\\Temp\\Github\\CT_Dev\\Simple_pop-Up\\Simple_pop-Up\\Simple_pop-Up.csproj",
         "projectName": "Simple_pop-Up",
-        "projectPath": "C:\\Temp\\Github\\Assored-Scripts\\ILA\\Simple_pop-Up\\Simple_pop-Up\\Simple_pop-Up.csproj",
+        "projectPath": "C:\\Temp\\Github\\CT_Dev\\Simple_pop-Up\\Simple_pop-Up\\Simple_pop-Up.csproj",
         "packagesPath": "C:\\Users\\JCL45\\.nuget\\packages\\",
-        "outputPath": "C:\\Temp\\Github\\Assored-Scripts\\ILA\\Simple_pop-Up\\Simple_pop-Up\\obj\\",
+        "outputPath": "C:\\Temp\\Github\\CT_Dev\\Simple_pop-Up\\Simple_pop-Up\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\JCL45\\AppData\\Roaming\\NuGet\\NuGet.Config",

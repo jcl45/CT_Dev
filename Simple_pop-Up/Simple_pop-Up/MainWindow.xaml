@@ -37,7 +37,7 @@
             </Button.Resources>
         </Button>
         <ComboBox x:Name="BrowseSelC" SelectedIndex="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="58,105,0,0" Width="220" Visibility="Hidden">
-            <ComboBoxItem Content="Select Worksheet"/>
+           <!-- <ComboBoxItem Content="Select Worksheet"/> -->
         </ComboBox>
         <TextBox x:Name="ResultsTB" HorizontalAlignment="Left" Margin="15,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="368" Height="104" BorderBrush="#FF43E47F" Background="#FF155E2F" Foreground="White" VerticalScrollBarVisibility="Auto" UseLayoutRounding="True" Visibility="Hidden"/>
 

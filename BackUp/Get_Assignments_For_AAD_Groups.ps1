@@ -32,6 +32,12 @@ function CallMSGraph {
     $Script:GraphReturn = $null
     $uri = "https://graph.microsoft.com/$Ver/$($Res)$($Extra)"
     $Script:GraphReturn = Invoke-MSGraphRequest -HttpMethod GET -Url $uri
+    $RawDataNextLink = $Script:GraphReturn.'@odata.nextLink'
+    While ($RawDataNextLink -ne $null){
+        $Script:GraphReturn = (Invoke-MSGraphRequest -HttpMethod GET -Url $RawDataNextLink)
+        $RawDataNextLink = $Script:GraphReturn.'@odata.nextLink'
+        $RawData += $Script:GraphReturn.value
+    }
 }
 
 
