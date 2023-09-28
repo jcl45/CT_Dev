@@ -36,6 +36,14 @@
                 </Style>
             </Button.Resources>
         </Button>
+        <Button x:Name="ColSel" HorizontalAlignment="Left" Margin="285,105,0,0" VerticalAlignment="Top" Width="47" BorderBrush="#FF43E47F" Background="#FF155E2F" Foreground="White" Height="22" FontSize="11" Visibility="Hidden">
+            <TextBlock Text="Select" Margin="0,-2,0,0"/>
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"></Setter>
+                </Style>
+            </Button.Resources>
+        </Button>
         <ComboBox x:Name="BrowseSelC" SelectedIndex="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="58,105,0,0" Width="220" Visibility="Hidden">
            <!-- <ComboBoxItem Content="Select Worksheet"/> -->
         </ComboBox>
