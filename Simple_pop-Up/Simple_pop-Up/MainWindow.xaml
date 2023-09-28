@@ -27,7 +27,7 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <TextBlock x:Name="BrowseFileN" HorizontalAlignment="Center" Margin="0,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" Width="320" Visibility="Hidden"/>
+        <TextBlock x:Name="BrowseFileN" HorizontalAlignment="Center" Margin="0,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" Width="320"/>
         <Button x:Name="BrowseSel" HorizontalAlignment="Left" Margin="285,105,0,0" VerticalAlignment="Top" Width="47" BorderBrush="#FF43E47F" Background="#FF155E2F" Foreground="White" Height="22" FontSize="11" Visibility="Hidden">
             <TextBlock Text="Select" Margin="0,-2,0,0"/>
             <Button.Resources>
@@ -45,8 +45,25 @@
             </Button.Resources>
         </Button>
         <ComboBox x:Name="BrowseSelC" SelectedIndex="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="58,105,0,0" Width="220" Visibility="Hidden">
-           <!-- <ComboBoxItem Content="Select Worksheet"/> -->
+            <!-- <ComboBoxItem Content="Select Worksheet"/> -->
         </ComboBox>
+        <Button x:Name="SelDev" HorizontalAlignment="Left" Margin="238,105,0,0" VerticalAlignment="Top" Width="115" BorderBrush="#FF43E47F" Background="#FF155E2F" Foreground="White" Height="22" FontSize="11" Visibility="Hidden">
+            <TextBlock Text="Device Group" Margin="0,-2,0,0"/>
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"></Setter>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button x:Name="SelUsr" HorizontalAlignment="Left" Margin="40,105,0,0" VerticalAlignment="Top" Width="115" BorderBrush="#FF43E47F" Background="#FF155E2F" Foreground="White" Height="22" FontSize="11" Click="SelUsr_Click" Visibility="Hidden">
+            <TextBlock Margin="0,-2,0,0" Text="User Group"/>
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"></Setter>
+                </Style>
+            </Button.Resources>
+        </Button>
+
         <TextBox x:Name="ResultsTB" HorizontalAlignment="Left" Margin="15,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="368" Height="104" BorderBrush="#FF43E47F" Background="#FF155E2F" Foreground="White" VerticalScrollBarVisibility="Auto" UseLayoutRounding="True" Visibility="Hidden"/>
 
     </Grid>

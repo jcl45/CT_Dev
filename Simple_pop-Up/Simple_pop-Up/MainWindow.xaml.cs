@@ -44,5 +44,10 @@ namespace Simple_pop_Up
         {
 
         }
+
+        private void SelUsr_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
