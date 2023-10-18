@@ -1,6 +1,8 @@
 #Multithread Declaration
 $syncHash = [hashtable]::Synchronized(@{})
-$newRunspace =[runspacefactory]::CreateRunspace()
+$MaxThreads = 3
+$newRunspace = [runspacefactory]::CreateRunspacePool(1, $MaxThreads)
+#$newRunspace =[runspacefactory]::CreateRunspace()
 $newRunspace.ApartmentState = "STA"
 $newRunspace.ThreadOptions = "ReuseThread"         
 $newRunspace.Open()
@@ -8,6 +10,7 @@ $newRunspace.SessionStateProxy.SetVariable("syncHash",$syncHash)
 
 #Global Variables
 $global:nl = "`r`n"
+$syncHash.C = 0
 
 #Global Functions
 function DateTime {
@@ -103,7 +106,25 @@ function CallMgGraph {
     $Global:GraphReturn = Invoke-MgGraphRequest -method $Meth -Uri $uri
 }
 
+function MTTest {
+    $PowerShell = [powershell]::Create()
+	$PowerShell.RunspacePool = $newRunspace
+	$PowerShell.AddScript($ScriptBlock).AddArgument($($syncHash.C = $syncHash.C =1))
+	$Jobs += $PowerShell.BeginInvoke()
+}
 
+function MTMsGraph {
+    param($Meth,$Res,$Ver,$Extra,$DataS)
+
+    $DataS | Foreach-Object {
+    $PowerShell = [powershell]::Create()
+    $PowerShell.RunspacePool = $newRunspace
+    $PowerShell.AddScript({
+        $uri = "https://graph.microsoft.com/$Ver/$($Res)$($Extra)"
+        Invoke-MgGraphRequest -method $Meth -Uri $uri
+    })
+    $Jobs += $PowerShell.BeginInvoke()
+}}
 
 
 
@@ -144,154 +165,23 @@ $syncHash.DevSerial.Add_SelectionChanged({
 })
 
 $syncHash.RemIntObj.Add_Click({
-    ListBoxUpdate
-    #$syncHash.OutPutBox.AppendText("$Script:DevArray")
-    
-    if ($DevArray.count -gt 0) {
-        $global:Session = [PowerShell]::Create().AddScript({
-            $syncHash.Window.Dispatcher.Invoke(
-                    [action]{
-                        $syncHash.DevArray | ForEach-Object {
-                            
-                            $syncHash.OutPutBox.AppendText("$_`r`n")
-                        }
-                    },"Normal"
-                )
-            
-            <#
-            function SyncHashAct {
-                Param (
-                [Parameter(Mandatory=$true, Position=0)]
-                [String]$Action
-                )
-                $syncHash.Window.Dispatcher.Invoke(
-                    [action]{
-                        $syncHash.$Action
-                    },"Normal"
-                )
-            }
 
-            ConnectMgGraph
-            $syncHash.OutPutBox.AppendText("$nl========================================== $nl$TD :  Assessing Devices $nl")
-            $Script:GraphR1 = $null
-            $Script:Output = @()
-            $Recent = @()
-            $ObjRem = @()
-            $NoObj = @()
-        
-            $Script:DevArray | ForEach-Object {
-                CallMSGraph "GET" "deviceManagement/managedDevices" "v1.0" "?`$filter=SerialNumber+eq+'$_'&`$select=id,lastSyncDateTime"
-                $OutRaw = $GraphReturn.value
-                if ($OutRaw.value.lenght -gt 0){
-                    if (($OutRaw.value.lastSyncDateTime -lt (Get-Date).AddDays(-14)) -or ($syncHash.Bypass14.IsChecked)) {
-                        #CallMSGraph "DELETE" "deviceManagement/managedDevices/$($OutRaw.value.id)"
-                         
-                        #Remove-IntunemanagedDevice -manageddeviceID ($Script:GraphR1.ID) -Verbose
-                        $ObjRem += "$_"
-                    } else {$Recent += "$_"}
-                } else {$NoObj += "$_"}
-            }
 
-            if ($Recent.count -ne 0) {
-                SyncHashAct "OutPutBox.AppendText("$TD :  Below Objects with Recent Intune Sync: $nl")"
-                #$syncHash.OutPutBox.AppendText("$TD :  Below Objects with Recent Intune Sync: $nl")
-                $Recent | ForEach-Object {
-                    SyncHashAct "OutPutBox.AppendText("         $_ $nl")"
-                }
-            }
-    
-            if ($ObjRem.count -ne 0) {
-                SyncHashAct "OutPutBox.AppendText("$TD :  Below Objects Removed: $nl")"
-                $ObjRem | ForEach-Object {
-                    SyncHashAct "OutPutBox.AppendText("         $_ $nl")"
-                }
-            }
-    
-            if ($NoObj.count -ne 0) {
-                SyncHashAct "OutPutBox.AppendText("$TD :  No Objects Found for Below Serial Number: $nl")"
-                $NoObj | ForEach-Object {
-                    SyncHashAct "OutPutBox.AppendText("         $_ $nl")"
-                }
-            }
 
-        #>
 
-        })
-    }
-    #>
-        $Session.Runspace = $newRunspace
-        $global:Handle = $Session.BeginInvoke()
+    $syncHash.OutPutBox.AppendText("$($syncHash.C)$nl")
+
+    <#ListBoxUpdate
+    if ($syncHash.DevArray.count -gt 1) {
+        $syncHash.DevArray | ForEach-Object {
+            $syncHash.OutPutBox.AppendText("$($_)$nl")
+        }
+    } else {
+        $syncHash.OutPutBox.AppendText("$($syncHash.DevArray)$nl")
+    }#>
+
+
 })
-
-
-
-
-
-        
-
-
-        #https://graph.microsoft.com/v1.0/deviceManagement/managedDevices?$filter=SerialNumber+eq+'H6Y85M3'&$select=id
-
-
-
-
-        <#
-        if ($Script:DevArray.count -gt 10) {Get-Graph "deviceManagement/managedDevices" "GET"} else {$Script:DevArray | ForEach-Object {
-            if ($_ -like "UK*") {$SNT = $_.TrimStart("UK")} else {$SNT = $_}
-            $Script:Output += (Get-IntuneManagedDevice -Filter "SerialNumber eq '$SNT'")  
-            }
-        }
-
-        
-        
-        $Script:DevArray | ForEach-Object {
-            #$WPFOutPutBox.AppendText("$TD :  Assessing Device: $_ $nl")
-            if ($_ -like "UK*") {$SNT = $_.TrimStart("UK")} else {$SNT = $_}
-            #$Script:GraphR1 = (Get-IntuneManagedDevice -Filter "SerialNumber eq '$SNT'")
-            $Script:GraphR1 = $Script:Output | Where-Object SerialNumber -eq "$SNT"
-
-            if ($null -ne $Script:GraphR1) {
-                if (([datetime]($Script:GraphR1.lastSyncDateTime) -lt (Get-Date).AddDays(-14)) -or ($WPFBypass14.IsChecked)) {
-                    #$WPFOutPutBox.AppendText("$TD :    --> Device Sync > 14 days $nl")
-                    Remove-IntunemanagedDevice -manageddeviceID ($Script:GraphR1.ID) -Verbose
-                    #$WPFOutPutBox.AppendText("$TD :    --> Object Removal initiated $nl")
-                    $ObjRem += "$_"
-                } else {
-                    #$WPFOutPutBox.AppendText("$TD :    --> Device Last Sync Within 14 days. Last Sync: $($Script:GraphR1.lastSyncDateTime) $nl")
-                    $Recent += "$_"
-                }
-            } else {
-                #$WPFOutPutBox.AppendText("$TD :    --> No Object Found $nl")
-                $NoObj += "$_"
-            }
-            #Start-Sleep 2
-        }
-    
-        if ($Recent.count -ne 0) {
-            $WPFOutPutBox.AppendText("$TD :  Below Objects with Recent Intune Sync: $nl")
-            $Recent | ForEach-Object {
-                $WPFOutPutBox.AppendText("         $_ $nl")
-            }
-        }
-
-        if ($ObjRem.count -ne 0) {
-            $WPFOutPutBox.AppendText("$TD :  Below Objects Removed: $nl")
-            $ObjRem | ForEach-Object {
-                $WPFOutPutBox.AppendText("         $_ $nl")
-            }
-        }
-
-        if ($NoObj.count -ne 0) {
-            $WPFOutPutBox.AppendText("$TD :  No Objects Found for Below Serial Number: $nl")
-            $NoObj | ForEach-Object {
-                    $WPFOutPutBox.AppendText("         $_ $nl")
-            }
-        }
-    } 
-    if ($WPFBypass14.IsChecked) {$WPFBypass14.IsChecked = $False}
-    #>
-#})
-
 
 
 #Show the form
