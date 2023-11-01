@@ -8,8 +8,8 @@
         Title="Window Title" Height="210" Width="400">
 
     <Grid Background="#FF248548">
-        <Rectangle HorizontalAlignment="Center" Height="47" VerticalAlignment="Top" Width="400" Fill="#FF2D9855"/>
-        <TextBlock x:Name="TextB1" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Margin="0,12,0,0" Foreground="White" Visibility="Hidden"/>
+        <Rectangle x:Name="Rect1" HorizontalAlignment="Center" Height="60" VerticalAlignment="Top" Width="400" Fill="#FF2D9855" Visibility="Hidden"/>
+        <TextBlock x:Name="TextB1" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="22" FontWeight="Bold" Margin="0,12,0,0" Foreground="White" Visibility="Hidden"/>
         <TextBlock x:Name="TextB2" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Margin="0,12,0,0" Foreground="White" Visibility="Hidden"/>
         <TextBlock x:Name="TextB3" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Margin="0,12,0,0" Foreground="White" Visibility="Hidden"/>
         <TextBlock x:Name="TextB4" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Margin="0,12,0,0" Foreground="White" Visibility="Hidden"/>
@@ -52,6 +52,9 @@
         <ComboBox x:Name="ComboB1" SelectedIndex="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="124,59,0,0" Width="220" Visibility="Hidden"/>
         <ComboBox x:Name="ComboB2" SelectedIndex="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="124,59,0,0" Width="220" Visibility="Hidden"/>
         <ComboBox x:Name="ComboB3" SelectedIndex="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="124,59,0,0" Width="220" Visibility="Hidden"/>
-        
+        <DataGrid x:Name="DataGrid1" Margin="0,63,0,1" Background="#FF248548" BorderBrush="#FF248548" HorizontalGridLinesBrush="#FF43E47F" VerticalGridLinesBrush="#FF43E47F" Visibility="Hidden" IsReadOnly="True"/>
+
+
+
     </Grid>
 </Window>

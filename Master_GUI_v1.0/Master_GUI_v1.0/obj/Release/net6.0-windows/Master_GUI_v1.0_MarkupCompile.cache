@@ -1,20 +1,20 @@
 ﻿Master_GUI_v1.0
-1.0.0.0
+
 
 winexe
 C#
 .cs
-C:\Temp\Github\CT_Dev\Master_GUI_v1.0\Master_GUI_v1.0\obj\Debug\net6.0-windows\
+C:\Temp\Github\CT_Dev\Master_GUI_v1.0\Master_GUI_v1.0\obj\Release\net6.0-windows\
 Master_GUI_v1._0
 none
 false
-TRACE;DEBUG;NET;NET6_0;NETCOREAPP
+TRACE;RELEASE;NET;NET6_0;NETCOREAPP
 C:\Temp\Github\CT_Dev\Master_GUI_v1.0\Master_GUI_v1.0\App.xaml
 11407045341
 
-5310171676
+3-1233169557
 194183970531
 MainWindow.xaml;
 
-False
+True
 
