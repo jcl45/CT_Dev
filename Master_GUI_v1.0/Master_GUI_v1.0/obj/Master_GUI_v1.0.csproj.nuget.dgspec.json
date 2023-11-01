@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Temp\\Github\\Assored-Scripts\\Master_GUI_v1.0\\Master_GUI_v1.0\\Master_GUI_v1.0.csproj": {}
+    "C:\\Temp\\Github\\CT_Dev\\Master_GUI_v1.0\\Master_GUI_v1.0\\Master_GUI_v1.0.csproj": {}
   },
   "projects": {
-    "C:\\Temp\\Github\\Assored-Scripts\\Master_GUI_v1.0\\Master_GUI_v1.0\\Master_GUI_v1.0.csproj": {
+    "C:\\Temp\\Github\\CT_Dev\\Master_GUI_v1.0\\Master_GUI_v1.0\\Master_GUI_v1.0.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Temp\\Github\\Assored-Scripts\\Master_GUI_v1.0\\Master_GUI_v1.0\\Master_GUI_v1.0.csproj",
+        "projectUniqueName": "C:\\Temp\\Github\\CT_Dev\\Master_GUI_v1.0\\Master_GUI_v1.0\\Master_GUI_v1.0.csproj",
         "projectName": "Master_GUI_v1.0",
-        "projectPath": "C:\\Temp\\Github\\Assored-Scripts\\Master_GUI_v1.0\\Master_GUI_v1.0\\Master_GUI_v1.0.csproj",
+        "projectPath": "C:\\Temp\\Github\\CT_Dev\\Master_GUI_v1.0\\Master_GUI_v1.0\\Master_GUI_v1.0.csproj",
         "packagesPath": "C:\\Users\\JCL45\\.nuget\\packages\\",
-        "outputPath": "C:\\Temp\\Github\\Assored-Scripts\\Master_GUI_v1.0\\Master_GUI_v1.0\\obj\\",
+        "outputPath": "C:\\Temp\\Github\\CT_Dev\\Master_GUI_v1.0\\Master_GUI_v1.0\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\JCL45\\AppData\\Roaming\\NuGet\\NuGet.Config",
