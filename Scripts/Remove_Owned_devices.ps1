@@ -1,6 +1,32 @@
-#Global Variables
+<#
+.SYNOPSIS
+  <Overview of script>
+
+.DESCRIPTION
+  <Brief description of script>
+
+.PARAMETER <Parameter_Name>
+  <Brief description of parameter input required. Repeat this attribute if required>
+
+.NOTES
+  Version:        1.0
+  Author:         James Cockerill
+  Creation Date:  14/11/2023
+  Purpose/Change: Initial script development
+
+#>
+
+##*=============================================================================================================================================
+##*                                               VARIABLE DECLARATION
+##*=============================================================================================================================================
+
 $Name = "Remove_Intune_Owned_Devices"
-$CacheFldr = "C:\ProgramData\Sky\Cache\$Name"
+$CacheDir = "C:\ProgramData\Sky\Cache\$Name"
+$GHUri = "https://raw.githubusercontent.com/jcl45/CT_Dev/main/Master_GUI_v1.0/Master_GUI_v1.0/MainWindow.xaml"
+
+##*=============================================================================================================================================
+##*                                                     FUNCTIONS
+##*=============================================================================================================================================
 
 function ConnectMgGraph {
     try {$OutP = Get-MgOrganization -ErrorAction Stop}
@@ -47,44 +73,6 @@ function Remove-OwnDev {
     #Search_Layout -DataSource $AL -Vis "Visible"
 }
 
-
-#WPF Window
-$CacheDir = "C:\ProgramData\Sky\Cache\ILA"
-if (!(Test-Path $CacheFldr)){Invoke-Expression -Command:"md $CacheFldr"}
-Invoke-RestMethod -Uri "https://raw.githubusercontent.com/jcl45/CT_Dev/main/Master_GUI_v1.0/Master_GUI_v1.0/MainWindow.xaml" -OutFile "$CacheFldr\MainWindow.xaml"#>
-$inputXML = Get-Content "$CacheFldr\MainWindow.xaml" #XAML Raw
-$inputXML = $inputXML -replace 'mc:Ignorable="d"','' -replace "x:N",'N' -replace '^<Win.*', '<Window'
-[void][System.Reflection.Assembly]::LoadWithPartialName('presentationframework')
-[xml]$XAML = $inputXML
-
-#Read XAML
-$reader=(New-Object System.Xml.XmlNodeReader $xaml)
-try {
-    $Form=[Windows.Markup.XamlReader]::Load( $reader )
-} catch {
-    Write-Warning "Unable to parse XML, with error: $($Error[0])`n Ensure that there are NO SelectionChanged or TextChanged properties in your textboxes (PowerShell cannot process them)"
-    throw
-}
-
-#Load XAML Objects In PowerShell
-$xaml.SelectNodes("//*[@Name]") | ForEach-Object {"trying item $($_.Name)";
-    try {Set-Variable -Name "WPF$($_.Name)" -Value $Form.FindName($_.Name) -ErrorAction Stop} catch {throw}
-}
-
-######################################
-# Set Element Parameters
-######################################
-
-## Main Window
-$MinHeight = 650 
-$MinWidth = 750
-#$Form.MinHeight = $MinHeight
-$Form.MinWidth = $MinWidth
-$Form.Title = "Manage Owned Devices"
-
-
-
-## Child Elements
 function Default_Layout {
     $WPFRect1.Width = $MinWidth
     $WPFRect1.Height = 60
@@ -136,14 +124,44 @@ function Search_Layout {
     }
 }
 
+##*=============================================================================================================================================
+##*                                                 GUI PREPERATION
+##*=============================================================================================================================================
 
+## Get XAML App Content
+if (!(Test-Path "$CacheDir\MainWindow.xaml")) {
+    if (!(Test-Path $CacheDir)) {Invoke-Expression -Command:"md $CacheDir"}
+    Invoke-RestMethod -Uri "$GHUri" -OutFile "$CacheDir\MainWindow.xaml"
+}
+$inputXML = Get-Content "$CacheDir\MainWindow.xaml" #XAML Raw
 
-######################################
-# Element Actions
-######################################
+## Parse XAML to PoSH use
+$inputXML = $inputXML -replace 'mc:Ignorable="d"','' -replace "x:N",'N' -replace '^<Win.*', '<Window'
+[void][System.Reflection.Assembly]::LoadWithPartialName('presentationframework')
+[xml]$XAML = $inputXML
+    
+## Read XAML 
+$reader=(New-Object System.Xml.XmlNodeReader $xaml)
+try {
+    $Form = [Windows.Markup.XamlReader]::Load( $reader )
+} catch {
+    Write-Warning "Unable to parse XML, with error: $($Error[0])`n Ensure that there are NO SelectionChanged or TextChanged properties in your textboxes (PowerShell cannot process them)"
+    throw
+}
 
-Default_Layout
+## Load XAML Objects In PowerShell
+$xaml.SelectNodes("//*[@Name]") | ForEach-Object {
+try {Set-Variable -Name "WPF$($_.Name)" -Value $Form.FindName($_.Name) -ErrorAction Stop}
+    catch {throw}
+}
 
+## Set Main Window Parameters
+$MinHeight = 650 
+$MinWidth = 750
+$Form.MinWidth = $MinWidth
+$Form.Title = "Manage Owned Devices"
+
+## Element Actions
 $WPFButton1.Add_Click({
     Default_Layout
     Search_Layout -Vis "Collapse"
@@ -182,6 +200,11 @@ $WPFButton3.Add_Click({
     $WPFInpTxt1.Text = $null
 })
 
+##*=============================================================================================================================================
+##*                                                     EXECUTION
+##*=============================================================================================================================================
+
+Default_Layout
 
 #Show GUI Window
 $Form.ShowDialog() | out-null

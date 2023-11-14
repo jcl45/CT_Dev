@@ -1,9 +1,6 @@
-try {
-    $Out = Get-AzureADTenantDetail
-}
-catch {
-    Connect-AzureAD
-}
+##Connect to Azure AD
+try {Get-AzureADTenantDetail} 
+    catch {Connect-AzureAD}
 
 $Dev = @(
     "UK4S541T3"
@@ -21,7 +18,6 @@ $Dev = @(
 
 $AADGrp = "UK WinEP - Enable Developer Mode"
 $AADGrpID = (Get-AzureADGroup -Filter "DisplayName eq '$($AADGrp)'").ObjectId
-
 
 $Dev | ForEach-Object {
     $RawRes = $null

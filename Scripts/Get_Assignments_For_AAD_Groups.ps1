@@ -3,21 +3,24 @@
   Get Assignments for AAD Groups
 .DESCRIPTION
   Used to get Apps, Compliance, Config, PS scripts and Admin Templates assigned to an Azure AD Security Group
-.PARAMETER <Parameter_Name>
-    N/A
-  None
-.OUTPUTS
-  None
 .NOTES
   Version:        2.0
   Author:         Galen Chand
   Creation Date:  23/05/2022
   Purpose/Change: Initial script development
                   Script updated to use MgGraph & Inlude more Intune categories - JCL45 - 14/11/2023
-  
-.EXAMPLE
-  N/A
 #>
+
+##*=============================================================================================================================================
+##*                                                  INITIALISATIONS
+##*=============================================================================================================================================
+
+##Modules
+if ($null -eq (Get-Module -Name Microsoft.Graph.Authentication)) {Install-Module Microsoft.Graph.Authentication}
+
+##*=============================================================================================================================================
+##*                                                     FUNCTIONS
+##*=============================================================================================================================================
 
 #Functions
 function ConnectMgGraph {
@@ -40,6 +43,10 @@ function CallMgGraph {
             $Script:GrRaw += $GraphReturn.value
             }
 }
+
+##*=============================================================================================================================================
+##*                                                     EXECUTION
+##*=============================================================================================================================================
 
 ## Prompt for AAD group Name
 $groupName = Read-Host -Prompt 'Pease input the AAD group name'
@@ -119,8 +126,8 @@ $GrReturn | Where-Object {Write-host $_.displayName -ForegroundColor Yellow}
 
 
 
-<#================ Device Config profiles not listing ================
-================ needs work =====================
+<#================ WIP ================
+
 ## Intents
 CallMSGraph "deviceManagement/intents" "Beta" "?`$filter=isAssigned+eq+true"
 $RawDataINR = $GraphReturn.value
