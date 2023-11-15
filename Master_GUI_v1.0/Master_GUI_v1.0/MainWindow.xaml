@@ -6,11 +6,7 @@
         xmlns:local="clr-namespace:Simple_pop_Up"
         mc:Ignorable="d"
         Title="Window Title"
-        Width="400"
-        Height="Auto"
-        SizeToContent="Height">
-
-    <!-- Height="210" Width="400" -->
+        Height="210" Width="400">
 
     <Grid Background="#FF248548">
         <Rectangle x:Name="Rect1" HorizontalAlignment="Center" Height="60" VerticalAlignment="Top" Width="400" Fill="#FF2D9855" Visibility="Hidden"/>

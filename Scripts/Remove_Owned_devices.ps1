@@ -102,26 +102,26 @@ function Search_Layout {
     Param ($DataSource, $Vis)
     $WPFDataGrid1.ItemsSource = $null
     $WPFDataGrid1.ItemsSource = $DataSource
-    $WPFDataGrid1.VerticalAlignment = "Bottom" 
+    $WPFDataGrid1.VerticalAlignment = "Top" 
     $WPFDataGrid1.Width = $($MinWidth -90)
-    $WPFDataGrid1.Height = $($MinHeight -156)
-    $WPFDataGrid1.Margin = "0,0,0,75"
+    $WPFDataGrid1.Height = $($MinHeight -250)
+    $WPFDataGrid1.Margin = "0,135,0,0"
     $WPFDataGrid1.RowHeaderWidth = 0
-    $Button_VPos2 = $($MinHeight)
-    $Button_HPos2 = $($MinWidth  -245)
+    $Button_VPos2 = ($MinHeight -100)
+    $Button_HPos2 = ($MinWidth -300)
     $WPFButton2.Content.Text = "Remove"
     $WPFButton2.Margin = "$Button_HPos2,$Button_VPos2,0,20"
     $WPFButton3.Content.Text = "Clear"
     $WPFButton3.Margin = "$($Button_HPos2 +105),$Button_VPos2,0,0"
-    if ($Vis -eq "Visible") {
+    #if ($Vis -eq "Visible") {
         $WPFDataGrid1.Visibility = "Visible"
         $WPFButton2.Visibility = "Visible"
         $WPFButton3.Visibility = "Visible"
-    } else {
+    <#} else {
         $WPFDataGrid1.Visibility = "Collapse"
         $WPFButton2.Visibility = "Collapse"
         $WPFButton3.Visibility = "Collapse"
-    }
+    }#>
 }
 
 ##*=============================================================================================================================================
@@ -159,21 +159,30 @@ try {Set-Variable -Name "WPF$($_.Name)" -Value $Form.FindName($_.Name) -ErrorAct
 $MinHeight = 650 
 $MinWidth = 750
 $Form.MinWidth = $MinWidth
+$Form.MinHeight = $MinHeight
 $Form.Title = "Manage Owned Devices"
+
+#Search_Layout
+
+
 
 ## Element Actions
 $WPFButton1.Add_Click({
     Default_Layout
-    Search_Layout -Vis "Collapse"
+    #Search_Layout -Vis "Collapse"
+    #Search_Layout -DataSource $AL -Vis "Visible"
     $WPFDataGrid1.ItemsSource = $null
+
+    
+
     if ($WPFInpTxt1.Text -match "@") {
         $UsrUPN = $WPFInpTxt1.Text
         CallMgGraph -Meth 'Get' -Ver 'v1.0' -Res 'users' -Extra "?`$filter=userPrincipalName eq '$($WPFInpTxt1.Text)'"
-        $UsrID = $GrRaw.id
+        $Script:UsrID = $GrRaw.id
         if ($null -ne $UsrID) {
             $WPFTextB1.Text = "Users Owned Devices"
             Get-OwnDev -UsrID $UsrID -DFilter $true
-            Search_Layout -DataSource $AL -Vis "Visible"
+            Search_Layout -DataSource $AL #-Vis "Visible"
         } else {
             $WPFTextB1.Text = "UPN Not Found, Enter a Valid UPN"
             $WPFTextB1.Foreground = "#9E2A2B"
