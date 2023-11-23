@@ -13,13 +13,7 @@ if (!(Test-path $CacheFldr)) {
 
 #Script Body
 ##Output Reg Location: HKLM:\SOFTWARE\BskyB
-New-Item -ItemType directory -Path "$CacheFldr\Registry"
-Get-ItemProperty Registry::HKEY_LOCAL_MACHINE\SOFTWARE\BskyB  | Out-File -FilePath "$CacheFldr\Registry\HKLM_Software_BskyB.log"
-$Map = (Get-ChildItem Registry::HKEY_LOCAL_MACHINE\SOFTWARE\BskyB -Recurse).Name
-$Map | ForEach-Object {
-    Add-content "$CacheFldr\Registry\HKLM_Software_BskyB.log" -value "`r`n -------------------------------------- `r`n"
-    Get-ItemProperty Registry::$_ | Out-File -Append -FilePath "$CacheFldr\Registry\HKLM_Software_BskyB.log"
-} 
+Invoke-Command  {reg export 'HKLM\SOFTWARE\BskyB' "$CacheFldr\BskyB.reg"}
 
 ##Copy C:\Windows\Bskyb_logs
 New-Item -ItemType directory -Path "$CacheFldr\BSKYB_Logs"
@@ -63,7 +57,28 @@ ForEach-Object {
     } | Export-Csv -NoClobber -Append "$CacheFldr\Certificates.csv" -NoTypeInformation
 
 ##Output AV Status
-Get-CimInstance -Namespace root/SecurityCenter2 -ClassName AntivirusProduct | Out-File -FilePath "$CacheFldr\AV_Status.log"
+$AVArray = @()
+$AVInfo = Get-CimInstance -Namespace root/SecurityCenter2 -ClassName AntivirusProduct
+$AVInfo | ForEach-Object {
+    switch ($_.productState) {
+        "262144" {$AVState = "Disabled & Up to date. State Code: 262144"}
+        "262160" {$AVState = "Disabled & Out of date. State Code: 262160"}
+        "266240" {$AVState = "Enabled & Up to date. State Code: 266240"}
+        "266256" {$AVState = "Enabled & Out of date. State Code: 266256"}
+        "393216" {$AVState = "Disabled & Up to date. State Code: 393216"}
+        "393232" {$AVState = "Disabled & Out of date. State Code: 393232"}
+        "393488" {$AVState = "Disabled & Out of date. State Code: 393488"}
+        "397312" {$AVState = "Enabled & Up to date. State Code: 397312"}
+        "397328" {$AVState = "Enabled & Out of date. State Code: 397328"}
+        "397584" {$AVState = "Enabled & Out of date. State Code: 397584"}
+        "397568" {$AVState = "Enabled & Up to date. State Code: 397568"}
+        "393472" {$AVState = "Disabled & Up to date. State Code: 393472"}
+        default {$AVState = "Unknown"}
+    }
+    $AVArray += "$($_.displayName) : $AVState"
+}
+$AVArray | Out-File -Force -FilePath "$CacheFldr\AV_Status.log"
+Invoke-Command  {reg export 'HKLM\SOFTWARE\Policies\Microsoft\Windows Defender' "$CacheFldr\Win_Defender_Pol.reg"}
 
 ##Bitlocker Status
 Get-BitLockerVolume | Out-File -FilePath "$CacheFldr\Bitlocker_Status.log"
@@ -74,12 +89,39 @@ $Hardware += Get-WmiObject Win32_ComputerSystem
 $Hardware += Get-WmiObject Win32_BIOS
 $Hardware | Out-File -FilePath "$CacheFldr\Hardware_Details.log"
 
-<#
-##Output C:\Windows\Temp Logshos
-$A = Get-ChildItem -Path C:\Windows\temp\* -Include ('*.txt', '*.log', '*.etl') -Recurse
-($A[1].DirectoryName).Substring(16)
 
-#>
+##Output C:\Windows\Temp Logs
+$Logs1 = Get-ChildItem -Path C:\Windows\temp\* -Include ('*.txt', '*.log', '*.etl') -Recurse
+$LPath = "C:\Windows\temp"
+$Folders = $Logs1.DirectoryName -gt $LPath
+$Folders | ForEach-Object {
+    $CacheSubFldr = "$CacheFldr\Windows_Temp\$($_.Substring(16))"
+    if (-Not(Test-Path $CacheSubFldr)) {
+        Write-Host $true
+        Invoke-Command  {mkdir $CacheSubFldr}
+    }
+    
+}
+$Logs1 | ForEach-Object {
+    if ($_.DirectoryName -gt 'C:\Windows\temp') {
+        $Destination = "$CacheFldr\Windows_Temp\$($_.DirectoryName.Substring(16))"
+    } else {
+        $Destination = "$CacheFldr\Windows_Temp\"
+    }
+    Copy-Item -Path $_.fullname -Destination $Destination
+}
+
+##Output All Users Temp Folder Logs
+<######################################### NEEDS WORK #########################################
+$UsrProf = Get-ChildItem c:\Users | Where-Object {($_.Name -ne 'defaultuser0') -And ($_.Name -ne 'Public') -And ($_.Name -notlike '*-2')}
+$UsrProf | ForEach-Object {
+    $UPath = "$($_.FullName)\AppData\Local\Temp"
+    if (Test-Path $UPath) {
+        Get-ChildItem -Path $UPath\* -Include ('*.txt', '*.log', '*.etl') -Recurse
+    }
+} 
+##############################################################################################>
+
 
 ##Compress Logs
 Compress-Archive -Path $CacheFldr\* -DestinationPath $zipfile
