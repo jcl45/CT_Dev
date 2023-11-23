@@ -90,38 +90,39 @@ $Hardware += Get-WmiObject Win32_BIOS
 $Hardware | Out-File -FilePath "$CacheFldr\Hardware_Details.log"
 
 
-##Output C:\Windows\Temp Logs
-$Logs1 = Get-ChildItem -Path C:\Windows\temp\* -Include ('*.txt', '*.log', '*.etl') -Recurse
-$LPath = "C:\Windows\temp"
-$Folders = $Logs1.DirectoryName -gt $LPath
-$Folders | ForEach-Object {
-    $CacheSubFldr = "$CacheFldr\Windows_Temp\$($_.Substring(16))"
-    if (-Not(Test-Path $CacheSubFldr)) {
-        Write-Host $true
-        Invoke-Command  {mkdir $CacheSubFldr}
+##Output System Logs
+function SysLogExpo {
+    param ($LPath, $ExpoPath, $SS)
+    $Logs1 = Get-ChildItem -Path $LPath\* -Include ('*.txt', '*.log', '*.etl') -Exclude ('NOTICE.txt') -Recurse
+    $Folders = $Logs1.DirectoryName -gt $LPath
+    $Folders | ForEach-Object {
+        $CacheSubFldr = "$CacheFldr\$ExpoPath\$($_.Substring($SS))"
+        if (-Not(Test-Path $CacheSubFldr)) {
+            Write-Host $true
+            Invoke-Command  {mkdir $CacheSubFldr}
+        }
     }
-    
-}
-$Logs1 | ForEach-Object {
-    if ($_.DirectoryName -gt 'C:\Windows\temp') {
-        $Destination = "$CacheFldr\Windows_Temp\$($_.DirectoryName.Substring(16))"
-    } else {
-        $Destination = "$CacheFldr\Windows_Temp\"
+    $Logs1 | ForEach-Object {
+        if ($_.DirectoryName -gt "$LPath") {
+            $Destination = "$CacheFldr\$ExpoPath\$($_.DirectoryName.Substring($SS))"
+        } else {
+            $Destination = "$CacheFldr\$ExpoPath\"
+        }
+        Copy-Item -Path $_.fullname -Destination $Destination
     }
-    Copy-Item -Path $_.fullname -Destination $Destination
 }
-
-##Output All Users Temp Folder Logs
-<######################################### NEEDS WORK #########################################
+###Output Windows Temp Folder Logs
+SysLogExpo -LPath 'C:\Windows\Temp' -ExpoPath 'Windows_Temp' -SS 16
+###Output Windows Logs Folder Logs
+SysLogExpo -LPath 'C:\Windows\Logs' -ExpoPath 'Windows_Logs' -SS 16
+###Output Windows Panther Folder Logs
+SysLogExpo -LPath 'C:\Windows\Panther' -ExpoPath 'Windows_Panther' -SS 19
+###Output All Users Temp Folder Logs
 $UsrProf = Get-ChildItem c:\Users | Where-Object {($_.Name -ne 'defaultuser0') -And ($_.Name -ne 'Public') -And ($_.Name -notlike '*-2')}
 $UsrProf | ForEach-Object {
     $UPath = "$($_.FullName)\AppData\Local\Temp"
-    if (Test-Path $UPath) {
-        Get-ChildItem -Path $UPath\* -Include ('*.txt', '*.log', '*.etl') -Recurse
-    }
+    SysLogExpo -LPath "$UPath" -ExpoPath "$($_)_Local_Temp" -SS 34
 } 
-##############################################################################################>
-
 
 ##Compress Logs
 Compress-Archive -Path $CacheFldr\* -DestinationPath $zipfile
