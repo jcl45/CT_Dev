@@ -73,7 +73,7 @@ Write-host "Number of Device Configurations Powershell Scripts found: $($GrRetur
 $GrReturn | Where-Object {Write-host $_.displayName -ForegroundColor Yellow}
 
 ## Device Configuration
-CallMgGraph -Meth 'Get' -Ver 'v1.0' -Res 'deviceManagement/deviceConfigurations' -Extra '?$expand=Assignments'
+CallMgGraph -Meth 'Get' -Ver 'beta' -Res 'deviceManagement/deviceConfigurations' -Extra '?$expand=Assignments'
 $GrReturn = $GrRaw | Where-Object {($_.assignments.target.groupid  -match $Group.id) -and ($_.'@odata.type' -ne "#microsoft.graph.windowsUpdateForBusinessConfiguration")}
 Write-host "Number of Device Configurations Profiles found: $($GrReturn.DisplayName.Count)" -ForegroundColor cyan
 $GrReturn | Where-Object {Write-host $_.displayName -ForegroundColor Yellow}
