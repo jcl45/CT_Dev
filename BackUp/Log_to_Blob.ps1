@@ -93,7 +93,7 @@ $Hardware | Out-File -FilePath "$CacheFldr\Hardware_Details.log"
 ##Output System Logs
 function SysLogExpo {
     param ($LPath, $ExpoPath, $SS)
-    $Logs1 = Get-ChildItem -Path $LPath\* -Include ('*.txt', '*.log', '*.etl') -Exclude ('NOTICE.txt') -Recurse
+    $Logs1 = Get-ChildItem -Path $LPath\* -Include ('*.txt', '*.log', '*.etl') -Exclude ('NOTICE.txt') -Recurse -ErrorAction SilentlyContinue
     $Folders = $Logs1.DirectoryName -gt $LPath
     $Folders | ForEach-Object {
         $CacheSubFldr = "$CacheFldr\$ExpoPath\$($_.Substring($SS))"
@@ -123,6 +123,11 @@ $UsrProf | ForEach-Object {
     $UPath = "$($_.FullName)\AppData\Local\Temp"
     SysLogExpo -LPath "$UPath" -ExpoPath "$($_)_Local_Temp" -SS 34
 } 
+###Output ProgramData Folder Logs
+SysLogExpo -LPath 'C:\ProgramData\Cisco' -ExpoPath 'ProgramData_Logs' -SS 15
+SysLogExpo -LPath 'C:\ProgramData\Dell' -ExpoPath 'ProgramData_Logs' -SS 15
+SysLogExpo -LPath 'C:\ProgramData\Microsoft\UpdateOS' -ExpoPath 'ProgramData_Logs' -SS 15
+SysLogExpo -LPath 'C:\ProgramData\Nexthink' -ExpoPath 'ProgramData_Logs' -SS 15
 
 ##Compress Logs
 Compress-Archive -Path $CacheFldr\* -DestinationPath $zipfile
