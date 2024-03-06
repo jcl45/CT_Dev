@@ -10,6 +10,16 @@
 #>
 
 ##*=============================================================================================================================================
+##*                                                  INITIALISATIONS
+##*=============================================================================================================================================
+
+if (!([bool](Get-PackageProvider -Name 'NuGet'))) {Install-PackageProvider NuGet -Force;}
+if ((Get-PSRepository -Name PSGallery).InstallationPolicy -ne 'Trusted') {Set-PSRepository PSGallery -InstallationPolicy Trusted}
+$AvailableModules = (Get-ChildItem -Path 'C:\Program Files\WindowsPowerShell\Modules').Name
+if (!([bool]($AvailableModules -match 'Microsoft.Graph.Authentication'))) {Install-Module Microsoft.Graph.Authentication -Force}
+Import-Module Microsoft.Graph.Authentication
+
+##*=============================================================================================================================================
 ##*                                               VARIABLE DECLARATION
 ##*=============================================================================================================================================
 
@@ -63,7 +73,7 @@ switch ($CloudDevData.groupTag) {
 $ExpectedName = $LocPre + $SN
 $HostCheck = $ExpectedName -match $LocHostname
 
-Break
+
 ### Validation
 if ($HostCheck) {
   Write-Host "Hostname Valid"
