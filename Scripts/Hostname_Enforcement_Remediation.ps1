@@ -50,7 +50,7 @@ function CallMgGraph {
             }
 }
 
-Function LogWrite{
+Function LogWrite {
     Param ([string]$logstring)
      $Stamp = (Get-Date).toString("yyyy/MM/dd HH:mm:ss")
      $fullString = $stamp + ": " + $logstring
@@ -76,7 +76,7 @@ $ClientSecretCredential = New-Object `
 Connect-MgGraph -TenantId $tenantID -ClientSecretCredential $ClientSecretCredential -NoWelcome
 
 ### Gather Data
-Write-Log "Gathering Device Data from Intune"
+LogWrite "Gathering Device Data from Intune"
 $SN = $((Get-CimInstance Win32_BIOS).SerialNumber)
 CallMgGraph -Meth 'Get' -Ver 'v1.0' -Res 'deviceManagement/windowsAutopilotDeviceIdentities' -Extra "?`$filter=contains(serialNumber,'$SN')"
 $CloudDevData = $GrRaw
@@ -88,9 +88,16 @@ switch ($CloudDevData.groupTag) {
     'CZ:UK' {$LocPre = 'CU';break}
 }
 $ExpectedName = $LocPre + $SN
-Write-Log "Expected Hostname: $ExpectedName :: Current Hostname: $env:computername"
+LogWrite "Expected Hostname: $ExpectedName :: Current Hostname: $env:computername"
 
 ### Rename Device
-Write-Log "Renaming hostname to: $ExpectedName"
-$ActOut = Rename-Computer -NewName "$($ExpectedName)" -Verbose
-Write-Log $ActOut
+LogWrite "Renaming hostname to: $ExpectedName"
+Remove-ItemProperty -path "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" -name "Hostname" 
+Remove-ItemProperty -path "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" -name "NV Hostname" 
+Set-ItemProperty -path "HKLM:\SYSTEM\CurrentControlSet\Control\Computername\Computername" -name "Computername" -value $ExpectedName
+Set-ItemProperty -path "HKLM:\SYSTEM\CurrentControlSet\Control\Computername\ActiveComputername" -name "Computername" -value $ExpectedName
+Set-ItemProperty -path "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" -name "Hostname" -value $ExpectedName
+Set-ItemProperty -path "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" -name "NV Hostname" -value  $ExpectedName
+Set-ItemProperty -path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -name "AltDefaultDomainName" -value $ExpectedName
+Set-ItemProperty -path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -name "DefaultDomainName" -value $ExpectedName
+Restart-Service -Name winmgmt -Force
