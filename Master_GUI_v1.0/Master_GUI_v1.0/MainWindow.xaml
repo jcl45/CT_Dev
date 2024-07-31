@@ -6,54 +6,89 @@
         xmlns:local="clr-namespace:Simple_pop_Up"
         mc:Ignorable="d"
         Title="Window Title"
-        Height="210" Width="400">
+        Height="800" Width="1400">
 
-    <Grid Background="#FF248548">
-        <Rectangle x:Name="Rect1" HorizontalAlignment="Center" Height="60" VerticalAlignment="Top" Width="400" Fill="#FF2D9855" Visibility="Hidden"/>
+    <Grid Background="#0f381e">
+        <Rectangle x:Name="Rect1" HorizontalAlignment="Left" Height="685" Margin="120,11,0,0" VerticalAlignment="Top" Width="1323" Fill="#FF37D06E" RadiusX="25" RadiusY="25"/>
+        <Rectangle x:Name="Rect2" HorizontalAlignment="Left" Height="205" VerticalAlignment="Top" Width="1323" Fill="#FF2D9855" Margin="120,605,0,0" RadiusX="25" RadiusY="25"/>
         <TextBlock x:Name="TextB1" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="22" FontWeight="Bold" Margin="0,12,0,0" Foreground="White" Visibility="Hidden"/>
         <TextBlock x:Name="TextB2" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Margin="0,12,0,0" Foreground="White" Visibility="Hidden"/>
         <TextBlock x:Name="TextB3" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Margin="0,12,0,0" Foreground="White" Visibility="Hidden"/>
         <TextBlock x:Name="TextB4" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Margin="0,12,0,0" Foreground="White" Visibility="Hidden"/>
-        <Button x:Name="Button1" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="86" Height="36" FontSize="16" BorderBrush="#FFA7C957" Background="#FF155E2F" Foreground="White" FontWeight="Bold" Visibility="Hidden">
-            <TextBlock Text="B1" Margin="0,-2,0,0"/>
+        <Button x:Name="ButtonL1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="99" Height="95" FontSize="16" BorderBrush="#FF0F381E" Background="#FF1C4A2E" Foreground="White" FontWeight="Bold" Margin="10,26,0,0">
+            <TextBlock Text="B1" Margin="0,-2,0,0" FontSize="12"/>
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="12"></Setter>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button x:Name="ButtonL2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="99" Height="95" FontSize="16" BorderBrush="#FF0F381E" Background="#FF1C4A2E" Foreground="White" FontWeight="Bold" Margin="10,142,0,0" Visibility="Hidden">
+            <TextBlock Text="B2" Margin="0,-2,0,0" FontSize="12"/>
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="12"></Setter>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button x:Name="ButtonL3" HorizontalAlignment="Left" VerticalAlignment="Top" Width="99" Height="95" FontSize="16" BorderBrush="#FF0F381E" Background="#FF1C4A2E" Foreground="White" FontWeight="Bold" Margin="10,258,0,0" Visibility="Hidden">
+            <TextBlock Text="B3" Margin="0,-2,0,0" FontSize="12"/>
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="12"></Setter>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button x:Name="ButtonL4" HorizontalAlignment="Left" VerticalAlignment="Top" Width="99" Height="95" FontSize="16" BorderBrush="#FF0F381E" Background="#FF1C4A2E" Foreground="White" FontWeight="Bold" Margin="10,374,0,0" Visibility="Hidden">
+            <TextBlock Text="B4" Margin="0,-2,0,0" FontSize="12"/>
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="12"></Setter>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button x:Name="ButtonB1" HorizontalAlignment="Left" Margin="148,640,0,0" VerticalAlignment="Top" Width="290" Height="116" FontSize="16" BorderBrush="#FF2D9855" Background="#FF217741" Foreground="White" FontWeight="Bold" Visibility="Hidden">
+            <TextBlock Text="BB1" Margin="0,-2,0,0"/>
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="10"></Setter>
                 </Style>
             </Button.Resources>
         </Button>
-        <Button x:Name="Button2" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="86" Height="36" FontSize="16" BorderBrush="#FFA7C957" Background="#FF155E2F" Foreground="White" FontWeight="Bold" Visibility="Hidden">
-            <TextBlock Text="B2" Margin="0,-2,0,0"/>
+        <Button x:Name="ButtonB2" HorizontalAlignment="Left" Margin="460,640,0,0" VerticalAlignment="Top" Width="290" Height="116" FontSize="16" BorderBrush="#FF2D9855" Background="#FF217741" Foreground="White" FontWeight="Bold" Visibility="Hidden">
+            <TextBlock Text="BB2" Margin="0,-2,0,0"/>
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="10"></Setter>
                 </Style>
             </Button.Resources>
         </Button>
-        <Button x:Name="Button3" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="86" Height="36" FontSize="16" BorderBrush="#FFA7C957" Background="#FF155E2F" Foreground="White" FontWeight="Bold" Visibility="Hidden">
-            <TextBlock Text="B3" Margin="0,-2,0,0"/>
+        <Button x:Name="ButtonB3" HorizontalAlignment="Left" Margin="772,640,0,0" VerticalAlignment="Top" Width="290" Height="116" FontSize="16" BorderBrush="#FF2D9855" Background="#FF217741" Foreground="White" FontWeight="Bold" Visibility="Hidden">
+            <TextBlock Text="BB3" Margin="0,-2,0,0"/>
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="10"></Setter>
                 </Style>
             </Button.Resources>
         </Button>
-        <Button x:Name="Button4" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="86" Height="36" FontSize="16" BorderBrush="#FFA7C957" Background="#FF155E2F" Foreground="White" FontWeight="Bold" Visibility="Hidden">
-            <TextBlock Text="B4" Margin="0,-2,0,0"/>
+        <Button x:Name="ButtonB4" HorizontalAlignment="Left" Margin="1084,640,0,0" VerticalAlignment="Top" Width="290" Height="116" FontSize="16" BorderBrush="#FF2D9855" Background="#FF217741" Foreground="White" FontWeight="Bold" Visibility="Hidden">
+            <TextBlock Text="BB4" Margin="0,-2,0,0"/>
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="10"></Setter>
                 </Style>
             </Button.Resources>
         </Button>
-        <TextBox x:Name="InpTxt1" HorizontalAlignment="Left" Margin="10,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Height="24" FontSize="14" TextAlignment="Center" Visibility="Hidden" BorderBrush="#FFA7C957"/>
-        <TextBox x:Name="InpTxt2" HorizontalAlignment="Left" Margin="10,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Height="24" FontSize="14" TextAlignment="Center" Visibility="Hidden" BorderBrush="#FFA7C957"/>
-        <TextBox x:Name="InpTxt3" HorizontalAlignment="Left" Margin="10,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Height="24" FontSize="14" TextAlignment="Center" Visibility="Hidden" BorderBrush="#FFA7C957"/>
-        <TextBox x:Name="InpTxt4" HorizontalAlignment="Left" Margin="10,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Height="24" FontSize="14" TextAlignment="Center" Visibility="Hidden" BorderBrush="#FFA7C957"/>
-        <ComboBox x:Name="ComboB1" SelectedIndex="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="124,59,0,0" Width="220" Visibility="Hidden"/>
+        <TextBox x:Name="InpTxt1" HorizontalAlignment="Left" Margin="176,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Height="24" FontSize="14" TextAlignment="Center" Background="#FF37D06E" BorderBrush="#FF37D06E" Visibility="Hidden" Foreground="White"/>
+        <TextBox x:Name="InpTxt2" HorizontalAlignment="Left" Margin="176,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Height="24" FontSize="14" TextAlignment="Center" Background="#FF37D06E" BorderBrush="#FF37D06E" Visibility="Hidden" Foreground="White"/>
+        <TextBox x:Name="InpTxt3" HorizontalAlignment="Left" Margin="176,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Height="24" FontSize="14" TextAlignment="Center" Background="#FF37D06E" BorderBrush="#FF37D06E" Visibility="Hidden" Foreground="White"/>
+        <TextBox x:Name="InpTxt4" HorizontalAlignment="Left" Margin="176,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Height="24" FontSize="14" TextAlignment="Center" Background="#FF37D06E" BorderBrush="#FF37D06E" Visibility="Hidden" Foreground="White"/>
+        <ComboBox x:Name="ComboB1" SelectedIndex="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="124,59,0,0" Width="220" Visibility="Hidden" />
         <ComboBox x:Name="ComboB2" SelectedIndex="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="124,59,0,0" Width="220" Visibility="Hidden"/>
         <ComboBox x:Name="ComboB3" SelectedIndex="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="124,59,0,0" Width="220" Visibility="Hidden"/>
-        <DataGrid x:Name="DataGrid1" Margin="0,63,0,46" Background="#FF248548" BorderBrush="#FF248548" HorizontalGridLinesBrush="#FFA7C957" VerticalGridLinesBrush="#FFA7C957" IsReadOnly="True" Visibility="Hidden"/>
+        <DataGrid x:Name="DataGrid1" Margin="148,38,10,207" Background="#FF37D06E" BorderBrush="#FF37D06E" HorizontalGridLinesBrush="#FFA7C957" VerticalGridLinesBrush="#FFA7C957" IsReadOnly="True" Visibility="Hidden"/>
+
+
 
 
 
