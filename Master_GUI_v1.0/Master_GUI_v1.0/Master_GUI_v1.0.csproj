@@ -8,4 +8,40 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="6596f62653942fd29de2cda9_64d685394585aaccefad7817_2022-09-29-image-2.jpeg" />
+    <None Remove="B1.png" />
+    <None Remove="B5.png" />
+    <None Remove="B6.png" />
+    <None Remove="Back_40.png" />
+    <None Remove="BB1.png" />
+    <None Remove="cancel.png" />
+    <None Remove="Connect-Cloud.png" />
+    <None Remove="Connect-Cloud_50.png" />
+    <None Remove="Connect-Cloud_55.png" />
+    <None Remove="corporify do not use excel.jpeg" />
+    <None Remove="Forward.png" />
+    <None Remove="Home_40.png" />
+    <None Remove="Home_50.png" />
+    <None Remove="noun-settings-6844376.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="6596f62653942fd29de2cda9_64d685394585aaccefad7817_2022-09-29-image-2.jpeg" />
+    <Resource Include="B1.png" />
+    <Resource Include="B5.png" />
+    <Resource Include="B6.png" />
+    <Resource Include="Back_40.png" />
+    <Resource Include="BB1.png" />
+    <Resource Include="cancel.png" />
+    <Resource Include="Connect-Cloud.png" />
+    <Resource Include="Connect-Cloud_50.png" />
+    <Resource Include="Connect-Cloud_55.png" />
+    <Resource Include="corporify do not use excel.jpeg" />
+    <Resource Include="Forward.png" />
+    <Resource Include="Home_40.png" />
+    <Resource Include="Home_50.png" />
+    <Resource Include="noun-settings-6844376.png" />
+  </ItemGroup>
+
 </Project>

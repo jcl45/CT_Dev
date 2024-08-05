@@ -7,23 +7,53 @@
         mc:Ignorable="d"
         Title="Window Title"
         Height="800" Width="1400">
-
+    <Window.Resources>
+        <Style x:Key="ButtonMO" TargetType="Button">
+            <Setter Property="Background" Value="LightBlue" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="Border" Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="DarkgoldenRod" TargetName="Border" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid Background="#0f381e">
         <Rectangle x:Name="Rect1" HorizontalAlignment="Left" Height="685" Margin="120,11,0,0" VerticalAlignment="Top" Width="1323" Fill="#FF37D06E" RadiusX="25" RadiusY="25"/>
         <Rectangle x:Name="Rect2" HorizontalAlignment="Left" Height="205" VerticalAlignment="Top" Width="1323" Fill="#FF2D9855" Margin="120,605,0,0" RadiusX="25" RadiusY="25"/>
+        <Image x:Name="IMG1"
+          Width="1162"
+          Source="C:\ProgramData\Sky\Cache\Master_GUI_v1.0\IMG1.jpeg"
+          Margin="0,27,62,194"
+          HorizontalAlignment="Right" Stretch="UniformToFill" Visibility="Hidden">
+            <Image.OpacityMask>
+                <RadialGradientBrush>
+                    <GradientStop Color="Black"/>
+                    <GradientStop Offset="0.9"/>
+                </RadialGradientBrush>
+            </Image.OpacityMask>
+        </Image>
         <TextBlock x:Name="TextB1" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="22" FontWeight="Bold" Margin="0,12,0,0" Foreground="White" Visibility="Hidden"/>
         <TextBlock x:Name="TextB2" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Margin="0,12,0,0" Foreground="White" Visibility="Hidden"/>
         <TextBlock x:Name="TextB3" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Margin="0,12,0,0" Foreground="White" Visibility="Hidden"/>
         <TextBlock x:Name="TextB4" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Margin="0,12,0,0" Foreground="White" Visibility="Hidden"/>
-        <Button x:Name="ButtonL1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="99" Height="95" FontSize="16" BorderBrush="#FF0F381E" Background="#FF1C4A2E" Foreground="White" FontWeight="Bold" Margin="10,26,0,0">
-            <TextBlock Text="B1" Margin="0,-2,0,0" FontSize="12"/>
+        <Button x:Name="ButtonL1" Style="{StaticResource ButtonMO}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="99" Height="95" FontSize="16" BorderBrush="#FF0F381E" Background="#FF1C4A2E" Foreground="White" FontWeight="Bold" Margin="10,26,0,0">
+            <Image Stretch="None" Source="C:\ProgramData\Sky\Cache\Master_GUI_v1.0\BL1.png" />
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="12"></Setter>
                 </Style>
             </Button.Resources>
         </Button>
-        <Button x:Name="ButtonL2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="99" Height="95" FontSize="16" BorderBrush="#FF0F381E" Background="#FF1C4A2E" Foreground="White" FontWeight="Bold" Margin="10,142,0,0" Visibility="Hidden">
+        <Button x:Name="ButtonL2" Style="{StaticResource ButtonMO}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="99" Height="95" FontSize="16" BorderBrush="#FF0F381E" Background="#FF1C4A2E" Foreground="White" FontWeight="Bold" Margin="10,142,0,0" Visibility="Hidden">
             <TextBlock Text="B2" Margin="0,-2,0,0" FontSize="12"/>
             <Button.Resources>
                 <Style TargetType="Border">
@@ -31,7 +61,7 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <Button x:Name="ButtonL3" HorizontalAlignment="Left" VerticalAlignment="Top" Width="99" Height="95" FontSize="16" BorderBrush="#FF0F381E" Background="#FF1C4A2E" Foreground="White" FontWeight="Bold" Margin="10,258,0,0" Visibility="Hidden">
+        <Button x:Name="ButtonL3" Style="{StaticResource ButtonMO}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="99" Height="95" FontSize="16" BorderBrush="#FF0F381E" Background="#FF1C4A2E" Foreground="White" FontWeight="Bold" Margin="10,258,0,0" Visibility="Hidden">
             <TextBlock Text="B3" Margin="0,-2,0,0" FontSize="12"/>
             <Button.Resources>
                 <Style TargetType="Border">
@@ -39,7 +69,7 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <Button x:Name="ButtonL4" HorizontalAlignment="Left" VerticalAlignment="Top" Width="99" Height="95" FontSize="16" BorderBrush="#FF0F381E" Background="#FF1C4A2E" Foreground="White" FontWeight="Bold" Margin="10,374,0,0" Visibility="Hidden">
+        <Button x:Name="ButtonL4" Style="{StaticResource ButtonMO}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="99" Height="95" FontSize="16" BorderBrush="#FF0F381E" Background="#FF1C4A2E" Foreground="White" FontWeight="Bold" Margin="10,374,0,0" Visibility="Hidden">
             <TextBlock Text="B4" Margin="0,-2,0,0" FontSize="12"/>
             <Button.Resources>
                 <Style TargetType="Border">
@@ -47,32 +77,91 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <Button x:Name="ButtonB1" HorizontalAlignment="Left" Margin="148,640,0,0" VerticalAlignment="Top" Width="290" Height="116" FontSize="16" BorderBrush="#FF2D9855" Background="#FF217741" Foreground="White" FontWeight="Bold" Visibility="Hidden">
-            <TextBlock Text="BB1" Margin="0,-2,0,0"/>
+        <Button x:Name="ButtonL5" Style="{StaticResource ButtonMO}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="99" Height="95" FontSize="16" BorderBrush="#FF0F381E" Background="#FF1C4A2E" Foreground="White" FontWeight="Bold" Margin="10,661,0,0">
+            <Image Stretch="None" Source="C:\ProgramData\Sky\Cache\Master_GUI_v1.0\BL5.png" />
+            <Button.ToolTip>Button 5 Tooltip</Button.ToolTip>
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="12"></Setter>
+                </Style>
+            </Button.Resources>
+
+        </Button>
+        <Button x:Name="ButtonB1" Style="{StaticResource ButtonMO}" HorizontalAlignment="Left" Margin="148,640,0,0" VerticalAlignment="Top" Width="290" Height="116" FontSize="16" BorderBrush="#FF2D9855" Background="#FF217741" Foreground="White" FontWeight="Bold" Visibility="Hidden">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Width="236">
+                <Image Source="C:\ProgramData\Sky\Cache\Master_GUI_v1.0\BB1.png" Stretch="None" Width="49" />
+                <DockPanel Name="BB1DP" Margin="30,0,0,0">
+                    <TextBlock x:Name="BB1DPT1" Text="Back" FontSize="18" VerticalAlignment="Top" TextWrapping="Wrap" DockPanel.Dock="Top" />
+                    <TextBlock x:Name="BB1DPT2" Text="Return to previous page" FontSize="12" VerticalAlignment="Top" Margin="0,6,0,0" DockPanel.Dock="Top" Foreground="#FFEAEAEA"/>
+                </DockPanel>
+            </StackPanel>
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="10"></Setter>
                 </Style>
             </Button.Resources>
         </Button>
-        <Button x:Name="ButtonB2" HorizontalAlignment="Left" Margin="460,640,0,0" VerticalAlignment="Top" Width="290" Height="116" FontSize="16" BorderBrush="#FF2D9855" Background="#FF217741" Foreground="White" FontWeight="Bold" Visibility="Hidden">
-            <TextBlock Text="BB2" Margin="0,-2,0,0"/>
+        <Button x:Name="ButtonB2" Style="{StaticResource ButtonMO}" HorizontalAlignment="Left" Margin="460,640,0,0" VerticalAlignment="Top" Width="290" Height="116" FontSize="16" BorderBrush="#FF2D9855" Background="#FF217741" Foreground="White" FontWeight="Bold" Visibility="Hidden">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Width="236">
+                <Image Source="C:\ProgramData\Sky\Cache\Master_GUI_v1.0\BB2.png" Stretch="None" Width="49" />
+                <DockPanel Name="BB2DP" Margin="30,0,0,0">
+                    <TextBlock x:Name="BB2DPT1" Text="Text Line 1" FontSize="18" VerticalAlignment="Top" TextWrapping="Wrap" DockPanel.Dock="Top" />
+                    <TextBlock x:Name="BB2DPT2" Text="Text line 2" FontSize="12" VerticalAlignment="Top" Margin="0,6,0,0" DockPanel.Dock="Top" Foreground="#FFEAEAEA"/>
+                </DockPanel>
+            </StackPanel>
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="10"></Setter>
                 </Style>
             </Button.Resources>
         </Button>
-        <Button x:Name="ButtonB3" HorizontalAlignment="Left" Margin="772,640,0,0" VerticalAlignment="Top" Width="290" Height="116" FontSize="16" BorderBrush="#FF2D9855" Background="#FF217741" Foreground="White" FontWeight="Bold" Visibility="Hidden">
-            <TextBlock Text="BB3" Margin="0,-2,0,0"/>
+        <Button x:Name="ButtonB3" Style="{StaticResource ButtonMO}" HorizontalAlignment="Left" Margin="772,640,0,0" VerticalAlignment="Top" Width="290" Height="116" FontSize="16" BorderBrush="#FF2D9855" Background="#FF217741" Foreground="White" FontWeight="Bold" Visibility="Hidden">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Width="236">
+                <Image Source="C:\ProgramData\Sky\Cache\Master_GUI_v1.0\BB3.png" Stretch="None" Width="49" />
+                <DockPanel Name="BB3DP" Margin="20,0,0,0">
+                    <TextBlock x:Name="BB3DPT1" Text="Cancel" FontSize="18" VerticalAlignment="Top" TextWrapping="Wrap" DockPanel.Dock="Top" />
+                    <TextBlock x:Name="BB3DPT2" Text="Exit the script" FontSize="12" VerticalAlignment="Top" Margin="0,6,0,0" DockPanel.Dock="Top" Foreground="#FFEAEAEA"/>
+                </DockPanel>
+            </StackPanel>
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="10"></Setter>
                 </Style>
             </Button.Resources>
         </Button>
-        <Button x:Name="ButtonB4" HorizontalAlignment="Left" Margin="1084,640,0,0" VerticalAlignment="Top" Width="290" Height="116" FontSize="16" BorderBrush="#FF2D9855" Background="#FF217741" Foreground="White" FontWeight="Bold" Visibility="Hidden">
-            <TextBlock Text="BB4" Margin="0,-2,0,0"/>
+        <Button x:Name="ButtonB4" Style="{StaticResource ButtonMO}" HorizontalAlignment="Left" Margin="1084,640,0,0" VerticalAlignment="Top" Width="290" Height="116" FontSize="16" BorderBrush="#FF2D9855" Background="#FF217741" Foreground="White" FontWeight="Bold" Visibility="Hidden">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Width="236">
+                <Image Source="C:\ProgramData\Sky\Cache\Master_GUI_v1.0\BB4.png" Stretch="None" Width="49" />
+                <DockPanel Name="BB4DP" Margin="30,0,0,0">
+                    <TextBlock x:Name="BB4DPT1" Text="Forward" FontSize="18" VerticalAlignment="Top" TextWrapping="Wrap" DockPanel.Dock="Top" />
+                    <TextBlock x:Name="BB4DPT2" Text="Continue to next page" FontSize="12" VerticalAlignment="Top" Margin="0,6,0,0" DockPanel.Dock="Top" Foreground="#FFEAEAEA"/>
+                </DockPanel>
+            </StackPanel>
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"></Setter>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button x:Name="ButtonM1" Style="{StaticResource ButtonMO}" HorizontalAlignment="Left" Margin="460,306,0,0" VerticalAlignment="Top" Width="290" Height="116" FontSize="16" BorderBrush="#FF2D9855" Background="#FF217741" Foreground="White" FontWeight="Bold" Visibility="Hidden">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Width="236">
+                <Image x:Name="BM1IMG" Source="C:\ProgramData\Sky\Cache\Master_GUI_v1.0\BM1.png" Stretch="None"/>
+                <TextBlock x:Name="BM1T1" Text="Text Line 1" FontSize="18" VerticalAlignment="Top" TextWrapping="Wrap" DockPanel.Dock="Top" />
+            </StackPanel>
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"></Setter>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button x:Name="ButtonM2" Style="{StaticResource ButtonMO}" HorizontalAlignment="Left" Margin="851,306,0,0" VerticalAlignment="Top" Width="290" Height="116" FontSize="16" BorderBrush="#FF2D9855" Background="#FF217741" Foreground="White" FontWeight="Bold" Visibility="Hidden">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Width="236">
+                <Image Source="C:\ProgramData\Sky\Cache\Master_GUI_v1.0\BM2.png" Stretch="None" Width="49" />
+                <DockPanel Name="BM2DP" Margin="30,0,0,0">
+                    <TextBlock x:Name="BM2DPT1" Text="Text Line 1" FontSize="18" VerticalAlignment="Top" TextWrapping="Wrap" DockPanel.Dock="Top" />
+                    <TextBlock x:Name="BM2DPT2" Text="Text line 2" FontSize="12" VerticalAlignment="Top" Margin="0,6,0,0" DockPanel.Dock="Top" Foreground="#FFEAEAEA"/>
+                </DockPanel>
+            </StackPanel>
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="10"></Setter>
@@ -87,10 +176,6 @@
         <ComboBox x:Name="ComboB2" SelectedIndex="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="124,59,0,0" Width="220" Visibility="Hidden"/>
         <ComboBox x:Name="ComboB3" SelectedIndex="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="124,59,0,0" Width="220" Visibility="Hidden"/>
         <DataGrid x:Name="DataGrid1" Margin="148,38,10,207" Background="#FF37D06E" BorderBrush="#FF37D06E" HorizontalGridLinesBrush="#FFA7C957" VerticalGridLinesBrush="#FFA7C957" IsReadOnly="True" Visibility="Hidden"/>
-
-
-
-
-
+    
     </Grid>
 </Window>

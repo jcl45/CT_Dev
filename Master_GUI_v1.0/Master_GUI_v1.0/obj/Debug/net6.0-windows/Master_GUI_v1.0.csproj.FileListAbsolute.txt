@@ -1,0 +1,4 @@
+C:\Temp\Github\CT_Dev\Master_GUI_v1.0\Master_GUI_v1.0\obj\Debug\net6.0-windows\MainWindow.g.cs
+C:\Temp\Github\CT_Dev\Master_GUI_v1.0\Master_GUI_v1.0\obj\Debug\net6.0-windows\App.g.cs
+C:\Temp\Github\CT_Dev\Master_GUI_v1.0\Master_GUI_v1.0\obj\Debug\net6.0-windows\Master_GUI_v1.0_MarkupCompile.cache
+C:\Temp\Github\CT_Dev\Master_GUI_v1.0\Master_GUI_v1.0\obj\Debug\net6.0-windows\Master_GUI_v1.0_MarkupCompile.lref
